@@ -6,7 +6,7 @@ https://github.com/elvishew/xLog
 
 相关使用配置可以参考源项目。
 
-** 修改的动机
+## 修改的动机
 
 原项目整体设计来讲还是很不错的，但是在动态tag输出上简直就是一大败笔！！！
 
@@ -31,7 +31,7 @@ https://github.com/elvishew/xLog
 完全不考虑性能开销啊！！！
 
 
-** 修改
+## 修改源码
 
 核心的实现类在Logger中：
 
@@ -95,7 +95,7 @@ https://github.com/elvishew/xLog
 
 
 
-** 使用
+## 使用
 
 为了避免重载参数过多导致调用错误，在保持原有方法不变的前提下，新增it、dt、wt、et等支持动态tag输出的方法：
 
