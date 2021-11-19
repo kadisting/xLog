@@ -227,7 +227,10 @@ public class Logger {
    * @param msg the message to log
    */
   public void d(String msg) {
-    println(LogLevel.DEBUG, msg);
+    dt(null,msg);
+  }
+  public void dt(String tag,String msg) {
+    println(tag,LogLevel.DEBUG, msg);
   }
 
   /**
@@ -239,6 +242,9 @@ public class Logger {
   public void d(String msg, Throwable tr) {
     println(LogLevel.DEBUG, msg, tr);
   }
+  public void dt(String tag,String msg, Throwable tr) {
+    println(tag,LogLevel.DEBUG, msg, tr);
+  }
 
   /**
    * Log an object with level {@link LogLevel#INFO}.
@@ -248,7 +254,10 @@ public class Logger {
    * @since 1.1.0
    */
   public void i(Object object) {
-    println(LogLevel.INFO, object);
+    it(null,object);
+  }
+  public void it(String tag,Object object) {
+    println(tag,LogLevel.INFO, object);
   }
 
   /**
@@ -267,7 +276,10 @@ public class Logger {
    * @param args   the arguments of the message to log
    */
   public void i(String format, Object... args) {
-    println(LogLevel.INFO, format, args);
+    it(null,format,args);
+  }
+  public void it(String tag,String format, Object... args) {
+    println(tag,LogLevel.INFO, format, args);
   }
 
   /**
@@ -276,7 +288,10 @@ public class Logger {
    * @param msg the message to log
    */
   public void i(String msg) {
-    println(LogLevel.INFO, msg);
+   it(null,msg);
+  }
+  public void it(String tag,String msg) {
+    println(tag,LogLevel.INFO, msg);
   }
 
   /**
@@ -286,8 +301,13 @@ public class Logger {
    * @param tr  the throwable to be log
    */
   public void i(String msg, Throwable tr) {
-    println(LogLevel.INFO, msg, tr);
+    it(null,msg,tr);
   }
+  public void it(String tag,String msg, Throwable tr) {
+    println(tag,LogLevel.INFO, msg, tr);
+  }
+
+
 
   /**
    * Log an object with level {@link LogLevel#WARN}.
@@ -325,7 +345,10 @@ public class Logger {
    * @param msg the message to log
    */
   public void w(String msg) {
-    println(LogLevel.WARN, msg);
+    wt(null,msg);
+  }
+  public void wt(String tag,String msg) {
+    println(tag,LogLevel.WARN, msg);
   }
 
   /**
@@ -335,7 +358,10 @@ public class Logger {
    * @param tr  the throwable to be log
    */
   public void w(String msg, Throwable tr) {
-    println(LogLevel.WARN, msg, tr);
+    wt(null, msg, tr);
+  }
+  public void wt(String tag,String msg, Throwable tr) {
+    println(tag,LogLevel.WARN, msg, tr);
   }
 
   /**
@@ -374,7 +400,10 @@ public class Logger {
    * @param msg the message to log
    */
   public void e(String msg) {
-    println(LogLevel.ERROR, msg);
+    et(null, msg);
+  }
+  public void et(String tag,String msg) {
+    println(tag,LogLevel.ERROR, msg);
   }
 
   /**
@@ -469,13 +498,16 @@ public class Logger {
     printlnInternal(LogLevel.DEBUG, logConfiguration.xmlFormatter.format(xml));
   }
 
+  private <T> void println(int logLevel, T object) {
+    println(null,logLevel,object);
+  }
   /**
    * Print an object in a new line.
    *
    * @param logLevel the log level of the printing object
    * @param object   the object to print
    */
-  private <T> void println(int logLevel, T object) {
+  private <T> void println(String tag,int logLevel, T object) {
     if (logLevel < logConfiguration.logLevel) {
       return;
     }
@@ -490,7 +522,7 @@ public class Logger {
     } else {
       objectString = "null";
     }
-    printlnInternal(logLevel, objectString);
+    printlnInternal(tag,logLevel, objectString);
   }
 
   /**
@@ -514,10 +546,13 @@ public class Logger {
    * @param args     the arguments of the printing log
    */
   private void println(int logLevel, String format, Object... args) {
+    println(null,logLevel,format,args);
+  }
+  private void println(String tag,int logLevel, String format, Object... args) {
     if (logLevel < logConfiguration.logLevel) {
       return;
     }
-    printlnInternal(logLevel, formatArgs(format, args));
+    printlnInternal(tag,logLevel, formatArgs(format, args));
   }
 
   /**
@@ -527,10 +562,13 @@ public class Logger {
    * @param msg      the message you would like to log
    */
     /*package*/ void println(int logLevel, String msg) {
+    println(null,logLevel,msg);
+  }
+    /*package*/ void println(String tag,int logLevel, String msg) {
     if (logLevel < logConfiguration.logLevel) {
       return;
     }
-    printlnInternal(logLevel, msg != null ? msg : "");
+    printlnInternal(tag,logLevel, msg != null ? msg : "");
   }
 
   /**
@@ -541,22 +579,31 @@ public class Logger {
    * @param tr       a throwable object to log
    */
   private void println(int logLevel, String msg, Throwable tr) {
+      println(null,logLevel,msg,tr);
+  }
+
+  private void println(String tag,int logLevel, String msg, Throwable tr) {
     if (logLevel < logConfiguration.logLevel) {
       return;
     }
-    printlnInternal(logLevel, ((msg == null || msg.length() == 0)
+    printlnInternal(tag,logLevel, ((msg == null || msg.length() == 0)
         ? "" : (msg + SystemCompat.lineSeparator))
         + logConfiguration.throwableFormatter.format(tr));
   }
 
+  private void printlnInternal(int logLevel, String msg) {
+      printlnInternal(null,logLevel,msg);
+  }
   /**
    * Print a log in a new line internally.
    *
    * @param logLevel the log level of the printing log
    * @param msg      the message you would like to log
    */
-  private void printlnInternal(int logLevel, String msg) {
-    String tag = logConfiguration.tag;
+  private void printlnInternal(String tag,int logLevel, String msg) {
+    if(tag == null){
+      tag = logConfiguration.tag;
+    }
     String thread = logConfiguration.withThread
         ? logConfiguration.threadFormatter.format(Thread.currentThread())
         : null;

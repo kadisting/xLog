@@ -640,8 +640,11 @@ public class XLog {
    * @param msg the message to log
    */
   public static void d(String msg) {
+    dt(null,msg);
+  }
+  public static void dt(String tag,String msg) {
     assertInitialization();
-    sLogger.d(msg);
+    sLogger.dt(tag,msg);
   }
 
   /**
@@ -651,10 +654,14 @@ public class XLog {
    * @param tr  the throwable to be log
    */
   public static void d(String msg, Throwable tr) {
+    dt(null,msg,tr);
+  }
+  public static void dt(String tag,String msg, Throwable tr) {
     assertInitialization();
-    sLogger.d(msg, tr);
+    sLogger.dt(tag,msg, tr);
   }
 
+  //===============================================
   /**
    * Log an object with level {@link LogLevel#INFO}.
    *
@@ -663,8 +670,12 @@ public class XLog {
    * @since 1.1.0
    */
   public static void i(Object object) {
+    it(null,object);
+  }
+
+  public static void it(String tag,Object object) {
     assertInitialization();
-    sLogger.i(object);
+    sLogger.it(tag,object);
   }
 
   /**
@@ -684,8 +695,11 @@ public class XLog {
    * @param args   the arguments of the message to log
    */
   public static void i(String format, Object... args) {
+    it(null,format,args);
+  }
+  public static void it(String tag,String format, Object... args) {
     assertInitialization();
-    sLogger.i(format, args);
+    sLogger.it(tag,format, args);
   }
 
   /**
@@ -694,8 +708,12 @@ public class XLog {
    * @param msg the message to log
    */
   public static void i(String msg) {
+    it(null,msg);
+  }
+
+  public static void it(String tag,String msg) {
     assertInitialization();
-    sLogger.i(msg);
+    sLogger.it(tag,msg);
   }
 
   /**
@@ -705,9 +723,17 @@ public class XLog {
    * @param tr  the throwable to be log
    */
   public static void i(String msg, Throwable tr) {
-    assertInitialization();
-    sLogger.i(msg, tr);
+    it(null,msg,tr);
   }
+
+  public static void it(String tag,String msg, Throwable tr) {
+    assertInitialization();
+    sLogger.it(tag,msg, tr);
+  }
+
+
+  //===============================================
+
 
   /**
    * Log an object with level {@link LogLevel#WARN}.
@@ -748,8 +774,12 @@ public class XLog {
    * @param msg the message to log
    */
   public static void w(String msg) {
+    wt(null,msg);
+  }
+
+  public static void wt(String tag,String msg) {
     assertInitialization();
-    sLogger.w(msg);
+    sLogger.wt(tag,msg);
   }
 
   /**
@@ -759,8 +789,11 @@ public class XLog {
    * @param tr  the throwable to be log
    */
   public static void w(String msg, Throwable tr) {
+    wt(null,msg,tr);
+  }
+  public static void wt(String tag,String msg, Throwable tr) {
     assertInitialization();
-    sLogger.w(msg, tr);
+    sLogger.wt(tag,msg, tr);
   }
 
   /**
@@ -802,8 +835,11 @@ public class XLog {
    * @param msg the message to log
    */
   public static void e(String msg) {
+    et(null,msg);
+  }
+  public static void et(String tag,String msg) {
     assertInitialization();
-    sLogger.e(msg);
+    sLogger.et(tag,msg);
   }
 
   /**
